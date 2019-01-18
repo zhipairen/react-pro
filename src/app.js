@@ -1,16 +1,9 @@
-import React from 'rect';
-import { BrowserRouter as Router, Route, Switch, StaticRouter } from 'react-router-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const Test = ({ match }) => <div>{match}</div>;
-const AppRouter = () => (
-  <Router>
-    <Switch>
-      <Route path="/test" component={Test} />
-      <Route path="/about"
-        render={props => <div {...props} extra />}
-      />
-    </Switch>
-  </Router>
+import AppRouter from './router';
+
+ReactDOM.render(
+  <AppRouter />,
+  document.getElementById('root')
 );
-
-export default AppRouter;

@@ -19,6 +19,7 @@ module.exports = (env) => ({
     rules: [
       {
         test: /\.jsx$/,
+        include: path.join(__dirname, 'src'),
         use: [
           {
             loader: 'babel-loader',
@@ -92,7 +93,7 @@ module.exports = (env) => ({
     hot: true,
     proxy: {
       '/api': {
-        target: 'http://www.baidu.com',
+        target: 'http://localhost:3000',
         pathRewrite: { '^/api': '' },
       },
     },

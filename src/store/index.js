@@ -1,18 +1,22 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist'; // 持久化
 import storage from 'redux-persist/lib/storage';
+import thunkMiddleware from 'redux-thunk';
 
-import * as reducers from './reducers';
+import reducers, { persisted } from './reducers';
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['navigation'],
 };
-const reducer = combineReducers(reducers);
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, persisted);
+const allReducers = combineReducers({ ...persistedReducer, ...reducers });
 
-let store = createStore(persistedReducer, window.__INITIAL_STATE__);
+const middlewares = applyMiddleware(thunkMiddleware);
+
+let store = createStore(allReducers, window.__INITIAL_STATE__, middlewares);
 
 export default store;
 export const persistor = persistStore(store);

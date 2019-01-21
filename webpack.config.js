@@ -34,6 +34,23 @@ module.exports = (env) => ({
         }),
       },
       {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+            },
+          }, {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          }],
+          fallback: 'style-loader',
+        }),
+      },
+      {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
           {

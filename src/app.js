@@ -6,10 +6,15 @@ import { PersistGate } from 'redux-persist/integration/react';
 import AppRouter from './router';
 import { store, persistor } from './store';
 
+import { LocaleProvider } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <AppRouter />
+      <LocaleProvider locale={zhCN}>
+        <AppRouter />
+      </LocaleProvider>
     </PersistGate>
   </Provider>, document.getElementById('root')
 );

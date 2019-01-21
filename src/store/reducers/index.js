@@ -1,5 +1,5 @@
-import test from './test';
+import todos from './todo';
 
 export default {
-  todos: test,
+  todos,
 };

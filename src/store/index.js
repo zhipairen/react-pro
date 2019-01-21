@@ -12,13 +12,7 @@ const reducer = combineReducers(reducers);
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-const initState = { // 可选
-  todos: [],
-};
+let store = createStore(persistedReducer, window.__INITIAL_STATE__);
 
-let store = createStore(persistedReducer, initState);
-let persistor = persistStore(store);
 export default store;
-export {
-  persistor,
-};
+export const persistor = persistStore(store);

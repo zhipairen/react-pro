@@ -2,6 +2,8 @@ import React from 'rect';
 import loadable from 'react-loadable';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Login from './pages/login';
+
 const Test = ({ match }) => <div>{match}</div>;
 const Loading = () => <div>loading...</div>;
 
@@ -14,7 +16,8 @@ const LoadbleDashboard = () => <LoadableComponent />;
 const AppRouter = () => (
   <Router basename = "/">
     <Switch>
-      <Route path="/test" component={Test} />
+      <Route path="/login" component={Login} />
+      <Route path="/home" component={Test} />
       <Route path="/about"
         render={props => <div {...props} extra />}
       />

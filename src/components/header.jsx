@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default class Header extends React.Component {
-  render () {
-    return (
+function Header () {
+//   const [count, setCount] = useState(1);
+  return (
+    <div>
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -18,6 +19,11 @@ export default class Header extends React.Component {
           <Link to="/test">test</Link>
         </li>
       </ul>
-    );
-  }
+      {/* <div>
+        <p>count: {count},</p>
+        <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
+      </div> */}
+    </div>
+  );
 }
+export default Header;

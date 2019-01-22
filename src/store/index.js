@@ -5,18 +5,27 @@ import thunkMiddleware from 'redux-thunk';
 
 import reducers, { persisted } from './reducers';
 
-const persistConfig = {
+const persistedReducer = Object.create(null);
+const rootRersistConfig = {
   key: 'root',
   storage,
-  whitelist: ['navigation'],
+  blacklist: ['navigation'],
 };
 
-const persistedReducer = persistReducer(persistConfig, persisted);
-const allReducers = combineReducers({ ...persistedReducer, ...reducers });
+Object.keys(persisted).forEach(k => {
+  persistedReducer[k] = persistReducer({
+    key: k,
+    storage,
+    blacklist: ['isLoggingIn'],
+  }, persisted[k]);
+});
+
+const allReducers = combineReducers({ ...reducers, ...persistedReducer });
+const rootReducers = persistReducer(rootRersistConfig, allReducers);
 
 const middlewares = applyMiddleware(thunkMiddleware);
 
-let store = createStore(allReducers, window.__INITIAL_STATE__, middlewares);
+let store = createStore(rootReducers, window.__INITIAL_STATE__, middlewares);
 
 export default store;
 export const persistor = persistStore(store);
